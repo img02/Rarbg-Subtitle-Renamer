@@ -1,0 +1,42 @@
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
+
+
+
+
+/*
+ *
+ * get base dir (should be the Subs folder)
+ *
+ * get list of subfolders
+ *  
+ * get language to look for
+ * 
+ * get file size prior?
+ * (e.g. SDH subtitles for hearing impaired will be the largest file size,
+ * whereas some videos come with min subtitles for other spoken languages or signs which will be the smallest file size)
+ *
+ * if (file size prior not avail) go with closest.
+ *
+ *
+ * set to video folder?
+ *      -o 'output path'  -- create dir and save to here
+ *      else move renamed subs to base Subs folder
+ *
+ * clean up remaining subtitles after? -d
+ *      if used - delete all subfolders and files in them (pref move to recycle bin, if simple to implement)
+ *
+ *
+ *
+ * for each subfolder
+ *      get subfolder name
+ *      reorder files based on size (largest > smallest?)
+ *      find first that matches language name and priority
+ *      rename to subfolder name + original extention (prob .srt)
+ *      move file out to ../Subs/MOVE FILE HERE 
+ * DONE
+ *
+ *
+ *
+ *
+ */
