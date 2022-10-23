@@ -9,7 +9,8 @@ public class Renamer
     private DirectoryInfo? _outputDir;
     private string _language = "english";
     private int _priority = 0;
-
+    private bool _deleteFilesAfterRenaming = false;
+    private DirectoryInfo[] baseDirSubDirectories;
 
     /*public Renamer(string baseDir, string outputDir, string language, int priority = 0)
     {
@@ -31,6 +32,7 @@ public class Renamer
         if (!baseDirPath.ToLowerInvariant().EndsWith("subs"))
         {
             _baseDir = Directory.CreateDirectory(baseDirPath);
+            baseDirSubDirectories = _baseDir.GetDirectories();
             return true;
         }
 
@@ -40,13 +42,14 @@ public class Renamer
         else
         {
             _baseDir = Directory.CreateDirectory(subDir);
+            baseDirSubDirectories = _baseDir.GetDirectories();
             return true;
         }
     }
 
     /// <summary>
     /// Sets the output directory for the subtitles. Base directory must be set first. 
-    /// If unable to create output dir. the base dir is used.
+    /// If unable to create output dir. the base dir is used. 
     /// </summary>
     /// <param name="outputDir"></param>
     public void SetOutputDirectory(string outputDir)
@@ -79,6 +82,12 @@ public class Renamer
     public void SetSubtitleFileSizePriority(int priority) => _priority = priority;
 
     /// <summary>
+    /// Sets whether or not to delete the 'Subs' folder after renaming.
+    /// </summary>
+    /// <param name="deleteAfterRename"></param>
+    public void SetDeleteAfterRename(bool deleteAfterRename) => _deleteFilesAfterRenaming = deleteAfterRename;
+
+    /// <summary>
     /// Renames and moves subtitles the the output folder based on language, priority inputs.
     /// </summary>
     public void RenameAndMoveSubtitles()
@@ -91,6 +100,16 @@ public class Renamer
             var subName = folder.Name;
             var files = folder.GetFiles();
             Utils.RenameFiles(files, _outputDir!, subName, _language, _priority);
+        }
+
+        if (_deleteFilesAfterRenaming) DeleteSubFolders(); 
+    }
+
+    private void DeleteSubFolders()
+    {
+        foreach (var dir in baseDirSubDirectories)
+        {
+            dir.Delete(true);
         }
     }
 }

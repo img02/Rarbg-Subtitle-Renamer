@@ -53,6 +53,7 @@ namespace CommandLine
             renamer.SetOutputDirectory(outputDir);
             renamer.SetSubtitleLanguage(lang);
             renamer.SetSubtitleFileSizePriority(priority);
+            renamer.SetDeleteAfterRename(false);
             renamer.RenameAndMoveSubtitles();
         }
     }
