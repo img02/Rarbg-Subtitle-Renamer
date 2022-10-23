@@ -64,7 +64,7 @@ namespace CommandLine
                         break;
                     default:
                         Console.WriteLine($"Unknown command {args[i]}. Use -h for help");
-                        break;
+                        return;
                 }
             }
             
@@ -73,7 +73,7 @@ namespace CommandLine
             if (outputDir != string.Empty) Console.WriteLine("To: \n" +
                                                              $"\t\t {outputDir}");
             if (lang != string.Empty) Console.WriteLine($"For language: '{lang}' with file size priority '{priority}'");
-            if (deleteAfterRename) Console.WriteLine("Deleting Subs folder after rename");
+            if (deleteAfterRename) Console.WriteLine("Deleting folder / subdirectories after rename");
 
             var renamer = new Renamer();
             if (!renamer.SetBaseDirectory(baseDir)) return;
@@ -88,8 +88,11 @@ namespace CommandLine
         {
             Console.WriteLine("Help: ");
             Console.WriteLine("-------------------------------");
-            Console.WriteLine(@"The base directory must either be the first param (e.g. 'D:\Movies\Show Name' or 'D:\Movies\Show Name\Subs' ) ");
+            Console.WriteLine(@"The base directory must either be the first param (e.g. 'D:\Television\Show Name' or 'D:\Television\Show Name\Subs' ) ");
             Console.WriteLine("Or if left out, is assumed to be the current directory.");
+            Console.WriteLine();
+            Console.WriteLine(@"Basic usage would be to open a terminal in the show's folder, then use 'rarbg-sub-renamer.exe -d'");
+            Console.WriteLine("To rename and move Eng subs to the 'Subs' folder and then delete all subdirectories.");
             Console.WriteLine("-------------------------------");
             Console.WriteLine("-l --language");
             Console.WriteLine("\t\t Sets the subtitle language to match. Must match the language in the file name. Defaults to English");
