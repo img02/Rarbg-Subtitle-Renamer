@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rarbg Subtitle Renamer", "R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lib", "lib\lib.csproj", "{BE6B6068-22A8-4003-8152-46B002A541D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rgb-sub-renamer", "Command Line\rgb-sub-renamer.csproj", "{349AD2BD-A46C-48B5-B9EB-9A1A73737894}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rarbg-sub-renamer", "Command Line\rarbg-sub-renamer.csproj", "{349AD2BD-A46C-48B5-B9EB-9A1A73737894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
