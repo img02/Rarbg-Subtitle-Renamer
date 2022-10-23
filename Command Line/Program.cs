@@ -8,6 +8,7 @@ namespace CommandLine
         {
             if (args.Length == 0) return;
 
+            int i = 1;
             var baseDir = args[0];
 
             if (baseDir is "-h" or "--help")
@@ -17,8 +18,9 @@ namespace CommandLine
             }
             if (!Directory.Exists(baseDir))
             {
-                Console.WriteLine($"Unable to find directory - {baseDir}");
-                return;
+                //set base dir as working dir, start args from 0
+                baseDir = Directory.GetCurrentDirectory();
+                i = 0;
             }
 
             var lang = string.Empty;
@@ -26,7 +28,7 @@ namespace CommandLine
             var outputDir = string.Empty;
             var deleteAfterRename = false;
 
-            for (int i = 1; i < args.Length; i++)
+            for (; i < args.Length; i++)
             {
                 switch (args[i])
                 {
@@ -47,6 +49,15 @@ namespace CommandLine
                             return;
                         }
                         break;
+                    case "-p":
+                    case "--priority-file-size":
+                        if (!int.TryParse(args[i++ + 1], out priority))
+                        {
+                            Console.WriteLine("Incorrect priority param.");
+                            return;
+                        }
+                        
+                        break;
                     case "-h":
                     case "--help":
                         PrintHelp();
@@ -56,6 +67,13 @@ namespace CommandLine
                         break;
                 }
             }
+            
+            Console.WriteLine($"Renaming subs from \n" +
+                              $"\t\t{baseDir}");
+            if (outputDir != string.Empty) Console.WriteLine("To: \n" +
+                                                             $"\t\t {outputDir}");
+            if (lang != string.Empty) Console.WriteLine($"For language: '{lang}' with file size priority '{priority}'");
+            if (deleteAfterRename) Console.WriteLine("Deleting Subs folder after rename");
 
             var renamer = new Renamer();
             if (!renamer.SetBaseDirectory(baseDir)) return;
@@ -70,10 +88,15 @@ namespace CommandLine
         {
             Console.WriteLine("Help: ");
             Console.WriteLine("-------------------------------");
-            Console.WriteLine(@"The first param must be the video or sub folder (e.g. 'D:\Movies\Show Name' or 'D:\Movies\Show Name\Subs' ) ");
+            Console.WriteLine(@"The base directory must either be the first param (e.g. 'D:\Movies\Show Name' or 'D:\Movies\Show Name\Subs' ) ");
+            Console.WriteLine("Or if left out, is assumed to be the current directory.");
             Console.WriteLine("-------------------------------");
             Console.WriteLine("-l --language");
             Console.WriteLine("\t\t Sets the subtitle language to match. Must match the language in the file name. Defaults to English");
+            Console.WriteLine("-p --priority");
+            Console.WriteLine("\t\t Sets the file size priority for subtitles, 0 being the largest file.");
+            Console.WriteLine("\t\t For example, SDH subtitles (Subtitles for the deaf or hard-of-hearing) will have more lines and therefore be a higher file size");
+            Console.WriteLine("\t\t Whereas subtitles that only contain signs or translated foreign lines will be smaller in size");
             Console.WriteLine("-o --output");
             Console.WriteLine("\t\t Sets the output folder path. Defaults to the 'Subs' folder");
             Console.WriteLine("-d --delete");
