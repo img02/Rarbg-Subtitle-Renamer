@@ -57,8 +57,6 @@ namespace CommandLine
                 }
             }
 
-            Console.WriteLine($"{baseDir} | {outputDir} | {lang} | {priority} | {deleteAfterRename}");
-
             var renamer = new Renamer();
             if (!renamer.SetBaseDirectory(baseDir)) return;
             renamer.SetOutputDirectory(outputDir);
@@ -70,8 +68,20 @@ namespace CommandLine
 
         private static void PrintHelp()
         {
-            Console.WriteLine("hello this is the help text");
-            Console.WriteLine("tbd");
+            Console.WriteLine("Help: ");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine(@"The first param must be the video or sub folder (e.g. 'D:\Movies\Show Name' or 'D:\Movies\Show Name\Subs' ) ");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("-l --language");
+            Console.WriteLine("\t\t Sets the subtitle language to match. Must match the language in the file name. Defaults to English");
+            Console.WriteLine("-o --output");
+            Console.WriteLine("\t\t Sets the output folder path. Defaults to the 'Subs' folder");
+            Console.WriteLine("-d --delete");
+            Console.WriteLine("\t\t Must be the last flag passed.");
+            Console.WriteLine("\t\t Deletes the 'Subs' directory and subdirectories after renaming and outputting to the specified path.");
+            Console.WriteLine("\t\t If no path specified, subdirectories will be deleted but the Subs folder will remain, with the new renamed subtitles");
+            Console.WriteLine("-h --help");
+            Console.WriteLine("\t\t Displays help.");
         }
     }
 }
