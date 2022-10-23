@@ -71,7 +71,7 @@ public class Renamer
     /// Sets the language to match from the file names. Defaults to English.
     /// </summary>
     /// <param name="language"></param>
-    public void SetSubtitleLanguage(string language) => _language = language;
+    public void SetSubtitleLanguage(string language) => _language = language.ToLowerInvariant();
 
     /// <summary>
     /// Sets the subtitle priority by file size.
@@ -94,7 +94,7 @@ public class Renamer
     {
         if (_baseDir == null) return;
         if (_outputDir == null) SetOutputDirectory(string.Empty);
-
+        
         foreach (var folder in _baseDir.GetDirectories())
         {
             var subName = folder.Name;
@@ -111,6 +111,7 @@ public class Renamer
         {
             dir.Delete(true);
         }
+        if (_baseDir!.GetDirectories().Length == 0 && _baseDir.GetFiles().Length == 0 ) _baseDir.Delete();
     }
 }
 
