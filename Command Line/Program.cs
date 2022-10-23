@@ -1,8 +1,62 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using lib;
+
+namespace CommandLine
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+
+            if (args.Length == 0) return;
+
+            //base dir
+            var baseDir = args[0];
+            if (!Directory.Exists(baseDir))
+            {
+                Console.WriteLine("Unable to find base directory");
+                return;
+            }
 
 
+            //language
+            var lang = string.Empty;
+            try
+            {
+                lang = args[1];
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
 
+            //sub filesize priority
+            var priority = 0;
+            try
+            {
+                int.TryParse(args[2], out priority);
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+
+            //output dir
+            var outputDir = string.Empty;
+            try
+            {
+                outputDir = args[3];
+            }
+            catch (IndexOutOfRangeException)
+            {
+            }
+
+            var renamer = new Renamer();
+            renamer.SetBaseDirectory(baseDir);
+            renamer.SetOutputDirectory(outputDir);
+            renamer.SetSubtitleLanguage(lang);
+            renamer.SetSubtitleFileSizePriority(priority);
+            renamer.RenameAndMoveSubtitles();
+        }
+    }
+}
 
 /*
  *
