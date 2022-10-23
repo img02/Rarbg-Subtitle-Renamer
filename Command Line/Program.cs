@@ -48,12 +48,35 @@ namespace CommandLine
             {
             }
 
+            //delete after rename
+            var deleteAfterRename = false;
+
+
+
+            for (int i = 1; i < args.Length; i++)
+            {
+                // iterate through args, args[0] must be the base directory.
+
+                //match flags, -l --language, -d --delete, -o --output, -h --help;  use switch statement?
+
+                //delete should jsut take flag to mark as true
+
+                //others should iterate i + 1 to get paired parameter (example: -l english)
+
+                //if any errors, maybe print reason, then quit 
+            }
+
+
+
+
+
+
             var renamer = new Renamer();
             renamer.SetBaseDirectory(baseDir);
             renamer.SetOutputDirectory(outputDir);
             renamer.SetSubtitleLanguage(lang);
             renamer.SetSubtitleFileSizePriority(priority);
-            renamer.SetDeleteAfterRename(false);
+            renamer.SetDeleteAfterRename(deleteAfterRename);
             renamer.RenameAndMoveSubtitles();
         }
     }
