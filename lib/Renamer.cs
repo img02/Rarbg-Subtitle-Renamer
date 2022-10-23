@@ -29,15 +29,15 @@ public class Renamer
     {
         if (!Directory.Exists(baseDirPath)) return false;
 
-        if (!baseDirPath.ToLowerInvariant().EndsWith("subs"))
+        if (baseDirPath.ToLowerInvariant().EndsWith("subs"))
         {
             _baseDir = Directory.CreateDirectory(baseDirPath);
             baseDirSubDirectories = _baseDir.GetDirectories();
             return true;
         }
-
+        
         var subDir = Directory.GetDirectories(baseDirPath)
-            .FirstOrDefault(f => f.ToLowerInvariant() == "subs");
+            .FirstOrDefault(f => f.ToLowerInvariant().Contains("subs"));
         if (subDir == null) return false;
         else
         {
@@ -123,9 +123,12 @@ internal static class Utils
 
         if (priority >= subs.Count) priority = subs.Count-1;
 
+        //sort by file size
+        subs.Sort((s1,s2) => s1.Length.CompareTo(s2.Length));
+
         var subFile = subs[priority];
         var newPath = $@"{outputDir.FullName}\{subtitleName}{subFile.Extension}";
-        subFile.MoveTo(newPath, true);
+        subFile.CopyTo(newPath, true);
     }
 
     private static List<FileInfo> GetFilesMatchingLanguage(FileInfo[] files, string language)

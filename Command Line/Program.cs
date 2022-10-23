@@ -7,6 +7,7 @@ namespace CommandLine
         public static void Main(string[] args)
         {
 
+            /*
             if (args.Length == 0) return;
 
             //base dir
@@ -65,19 +66,25 @@ namespace CommandLine
 
                 //if any errors, maybe print reason, then quit 
             }
+            */
 
 
 
 
+            var baseDir1 = @"Z:\New\Schitts.Creek.S01.1080p.WEBRip.x265-RARBG";
+            var outputdir1 = @"Z:\New\Schitts.Creek.S01.1080p.WEBRip.x265-RARBG\test";
+            var renamer1 = new Renamer();
+            renamer1.SetBaseDirectory(baseDir1);
+            renamer1.SetOutputDirectory(outputdir1);
+            renamer1.RenameAndMoveSubtitles();
 
-
-            var renamer = new Renamer();
-            renamer.SetBaseDirectory(baseDir);
+            /*var renamer = new Renamer();
+            if (renamer.SetBaseDirectory(baseDir)) return;
             renamer.SetOutputDirectory(outputDir);
             renamer.SetSubtitleLanguage(lang);
             renamer.SetSubtitleFileSizePriority(priority);
             renamer.SetDeleteAfterRename(deleteAfterRename);
-            renamer.RenameAndMoveSubtitles();
+            renamer.RenameAndMoveSubtitles();*/
         }
     }
 }
