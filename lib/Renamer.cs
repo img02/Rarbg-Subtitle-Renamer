@@ -1,6 +1,4 @@
-﻿using System.Resources;
-
-namespace lib;
+﻿namespace lib;
 
 
 public class Renamer
@@ -11,7 +9,7 @@ public class Renamer
     private int _priority = 0;
     private bool _deleteFilesAfterRenaming = false;
     private DirectoryInfo[] baseDirSubDirectories;
-    
+
     /// <summary>
     /// Sets the base 'Subs' directory. If the parent video directory is passed, it checks if the 'Subs' folder exists. 
     /// </summary>
@@ -27,7 +25,7 @@ public class Renamer
             baseDirSubDirectories = _baseDir.GetDirectories();
             return true;
         }
-        
+
         var subDir = Directory.GetDirectories(baseDirPath)
             .FirstOrDefault(f => f.ToLowerInvariant().Contains("subs"));
         if (subDir == null) return false;
@@ -47,7 +45,7 @@ public class Renamer
     public void SetOutputDirectory(string outputDir)
     {
         if (_baseDir == null) return;
-       
+
         try
         {
             _outputDir = Directory.CreateDirectory(outputDir);
@@ -86,7 +84,7 @@ public class Renamer
     {
         if (_baseDir == null) return;
         if (_outputDir == null) SetOutputDirectory(string.Empty);
-        
+
         foreach (var folder in _baseDir.GetDirectories())
         {
             var subName = folder.Name;
@@ -94,7 +92,7 @@ public class Renamer
             Utils.RenameFiles(files, _outputDir!, subName, _language, _priority);
         }
 
-        if (_deleteFilesAfterRenaming) DeleteSubFolders(); 
+        if (_deleteFilesAfterRenaming) DeleteSubFolders();
     }
 
     private void DeleteSubFolders()
@@ -103,21 +101,21 @@ public class Renamer
         {
             dir.Delete(true);
         }
-        if (_baseDir!.GetDirectories().Length == 0 && _baseDir.GetFiles().Length == 0 ) _baseDir.Delete();
+        if (_baseDir!.GetDirectories().Length == 0 && _baseDir.GetFiles().Length == 0) _baseDir.Delete();
     }
 }
 
 internal static class Utils
 {
-    public static void RenameFiles(FileInfo[] files, DirectoryInfo outputDir, string subtitleName , string language, int priority)
+    public static void RenameFiles(FileInfo[] files, DirectoryInfo outputDir, string subtitleName, string language, int priority)
     {
         var subs = GetFilesMatchingLanguage(files, language);
         if (subs.Count == 0) return;
 
-        if (priority >= subs.Count) priority = subs.Count-1;
+        if (priority >= subs.Count) priority = subs.Count - 1;
 
         //sort by file size
-        subs.Sort((s1,s2) => s2.Length.CompareTo(s1.Length));
+        subs.Sort((s1, s2) => s2.Length.CompareTo(s1.Length));
 
         var subFile = subs[priority];
         var newPath = $@"{outputDir.FullName}\{subtitleName}{subFile.Extension}";

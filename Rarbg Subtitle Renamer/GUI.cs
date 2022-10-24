@@ -1,8 +1,8 @@
 ﻿using ImGuiNET;
 using System.Numerics;
+using Veldrid;
 using Veldrid.Sdl2;
 using Veldrid.StartupUtilities;
-using Veldrid;
 
 namespace Rarbg_Subtitle_Renamer
 {
@@ -27,8 +27,8 @@ namespace Rarbg_Subtitle_Renamer
         private static bool _showAnotherWindow = false;
         private static bool _showMemoryEditor = false;
         private static byte[] _memoryEditorData;
-        private static uint s_tab_bar_flags = (uint) ImGuiTabBarFlags.Reorderable;
-        static bool[] s_opened = {true, true, true, true}; // Persistent user state
+        private static uint s_tab_bar_flags = (uint)ImGuiTabBarFlags.Reorderable;
+        static bool[] s_opened = { true, true, true, true }; // Persistent user state
 
         static void SetThing(out float i, float val)
         {
@@ -45,7 +45,7 @@ namespace Rarbg_Subtitle_Renamer
                 out _gd);
             _window.Resized += () =>
             {
-                _gd.MainSwapchain.Resize((uint) _window.Width, (uint) _window.Height);
+                _gd.MainSwapchain.Resize((uint)_window.Width, (uint)_window.Height);
                 _controller.WindowResized(_window.Width, _window.Height);
             };
             _cl = _gd.ResourceFactory.CreateCommandList();
@@ -53,7 +53,7 @@ namespace Rarbg_Subtitle_Renamer
                 _window.Height);
             // _memoryEditor = new MemoryEditor();
             Random random = new Random();
-            _memoryEditorData = Enumerable.Range(0, 1024).Select(i => (byte) random.Next(255)).ToArray();
+            _memoryEditorData = Enumerable.Range(0, 1024).Select(i => (byte)random.Next(255)).ToArray();
 
             // Main application loop
             while (_window.Exists)
@@ -68,7 +68,7 @@ namespace Rarbg_Subtitle_Renamer
                     snapshot); // Feed the input events to our ImGui controller, which passes them through to ImGui.
 
                 DrawGUI();
-                
+
 
                 _cl.Begin();
                 _cl.SetFramebuffer(_gd.MainSwapchain.Framebuffer);

@@ -14,7 +14,7 @@ namespace CommandLine
             //if no args try to rename from curr directory
             if (args.Length == 0)
             {
-                Rename(Directory.GetCurrentDirectory(), outputDir, lang, priority, deleteAfterRename); 
+                Rename(Directory.GetCurrentDirectory(), outputDir, lang, priority, deleteAfterRename);
                 return;
             }
 
@@ -62,7 +62,7 @@ namespace CommandLine
                             Console.WriteLine("Incorrect priority param.");
                             return;
                         }
-                        
+
                         break;
                     case "-h":
                     case "--help":
