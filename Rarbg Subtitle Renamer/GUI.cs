@@ -89,6 +89,9 @@ namespace Rarbg_Subtitle_Renamer
         private static void DrawGUI()
         {
             ImGui.Text("ToDo");
+            ImGui.Text("probably not idk");
+            ImGui.Text("just wanted to play around with imgui.net again");
+            ImGui.Text("but exe size");
 
         }
     }
