@@ -11,15 +11,7 @@ public class Renamer
     private int _priority = 0;
     private bool _deleteFilesAfterRenaming = false;
     private DirectoryInfo[] baseDirSubDirectories;
-
-    /*public Renamer(string baseDir, string outputDir, string language, int priority = 0)
-    {
-        _baseDir = baseDir;
-        _outputDir = outputDir;
-        _language = language;
-        _priority = priority;
-    }*/
-
+    
     /// <summary>
     /// Sets the base 'Subs' directory. If the parent video directory is passed, it checks if the 'Subs' folder exists. 
     /// </summary>

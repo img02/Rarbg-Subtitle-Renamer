@@ -6,6 +6,10 @@
     <RootNamespace>Command_Line</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RepositoryUrl>https://github.com/imaginary-png/Rarbg-Subtitle-Renamer</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/imaginary-png/Rarbg-Subtitle-Renamer</PackageProjectUrl>
+    <Authors>https://github.com/imaginary-png/Rarbg-Subtitle-Renamer</Authors>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
