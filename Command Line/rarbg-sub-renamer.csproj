@@ -17,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\lib\lib.csproj" />
+    <ProjectReference Include="..\lib\rarbg-sub-renamer-lib.csproj" />
   </ItemGroup>
 
 </Project>
