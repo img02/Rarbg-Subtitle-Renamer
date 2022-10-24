@@ -125,7 +125,7 @@ internal static class Utils
         if (priority >= subs.Count) priority = subs.Count-1;
 
         //sort by file size
-        subs.Sort((s1,s2) => s1.Length.CompareTo(s2.Length));
+        subs.Sort((s1,s2) => s2.Length.CompareTo(s1.Length));
 
         var subFile = subs[priority];
         var newPath = $@"{outputDir.FullName}\{subtitleName}{subFile.Extension}";

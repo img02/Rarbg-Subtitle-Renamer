@@ -6,9 +6,20 @@ namespace CommandLine
     {
         public static void Main(string[] args)
         {
-            if (args.Length == 0) return;
+            var lang = string.Empty;
+            var priority = 0;
+            var outputDir = string.Empty;
+            var deleteAfterRename = false;
 
-            int i = 1;
+            //if no args try to rename from curr directory
+            if (args.Length == 0)
+            {
+                Rename(Directory.GetCurrentDirectory(), outputDir, lang, priority, deleteAfterRename); 
+                return;
+            }
+
+            //else try to parse args
+            var i = 1;
             var baseDir = args[0];
 
             if (baseDir is "-h" or "--help")
@@ -22,11 +33,6 @@ namespace CommandLine
                 baseDir = Directory.GetCurrentDirectory();
                 i = 0;
             }
-
-            var lang = string.Empty;
-            var priority = 0;
-            var outputDir = string.Empty;
-            var deleteAfterRename = false;
 
             for (; i < args.Length; i++)
             {
@@ -67,23 +73,27 @@ namespace CommandLine
                         return;
                 }
             }
-            
+
+            Rename(baseDir, outputDir, lang, priority, deleteAfterRename);
+        }
+
+        private static void Rename(string baseDir, string outputDir, string lang, int priority, bool delete)
+        {
             Console.WriteLine($"Renaming subs from \n" +
                               $"\t\t{baseDir}");
             if (outputDir != string.Empty) Console.WriteLine("To: \n" +
                                                              $"\t\t {outputDir}");
             if (lang != string.Empty) Console.WriteLine($"For language: '{lang}' with file size priority '{priority}'");
-            if (deleteAfterRename) Console.WriteLine("Deleting folder / subdirectories after rename");
+            if (delete) Console.WriteLine("Deleting folder / subdirectories after rename");
 
             var renamer = new Renamer();
             if (!renamer.SetBaseDirectory(baseDir)) return;
             renamer.SetOutputDirectory(outputDir);
             renamer.SetSubtitleLanguage(lang);
             renamer.SetSubtitleFileSizePriority(priority);
-            renamer.SetDeleteAfterRename(deleteAfterRename);
+            renamer.SetDeleteAfterRename(delete);
             renamer.RenameAndMoveSubtitles();
         }
-
         private static void PrintHelp()
         {
             Console.WriteLine("Help: ");
