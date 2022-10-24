@@ -9,7 +9,7 @@ namespace Rarbg_Subtitle_Renamer
     /// <summary>
     /// Base code and Shaders copied and modified from https://github.com/mellinoe/ImGui.NET/tree/master/src/ImGui.NET.SampleProgram
     /// </summary>
-    internal class Program
+    internal class GUI
     {
         private static Sdl2Window _window;
         private static GraphicsDevice _gd;
@@ -88,7 +88,7 @@ namespace Rarbg_Subtitle_Renamer
 
         private static void DrawGUI()
         {
-            ImGui.Text("EHHLO");
+            ImGui.Text("ToDo");
 
         }
     }
