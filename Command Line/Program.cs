@@ -4,9 +4,10 @@ namespace CommandLine
 {
     public class Program
     {
+        public const string DefaultLanguage = "eng";
         public static void Main(string[] args)
         {
-            var lang = string.Empty;
+            var lang = DefaultLanguage;
             var priority = 0;
             var outputDir = string.Empty;
             var deleteAfterRename = false;
