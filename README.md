@@ -2,7 +2,7 @@
 
 Requires .net 6
 
-Command line tool for bulk renaming and relocation of sub files for when some rarbg torrents bundle them into individual folders per episode.
+Command line tool for bulk renaming and relocation of sub files for when some rarbg torrents bundle subtitles into individual folders per episode.
 
 e.g.
 
