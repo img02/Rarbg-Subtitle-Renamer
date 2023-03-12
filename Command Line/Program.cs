@@ -4,7 +4,7 @@ namespace CommandLine
 {
     public class Program
     {
-        public const string DefaultLanguage = "eng";
+        public const string DefaultLanguage = "English";
         public static void Main(string[] args)
         {
             var lang = DefaultLanguage;

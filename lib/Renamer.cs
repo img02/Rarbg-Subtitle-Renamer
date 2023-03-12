@@ -1,4 +1,6 @@
-﻿namespace lib;
+﻿using System.Globalization;
+
+namespace lib;
 
 
 public class Renamer
@@ -109,6 +111,12 @@ internal static class Utils
 {
     public static void RenameFiles(FileInfo[] files, DirectoryInfo outputDir, string subtitleName, string language, int priority)
     {
+        var languageCode = language;
+        if (languageCode.Length > 3)//If 3 chars or less, we assume the language provided was already a valid language code
+        {
+            languageCode = GetISOCodeMatchingLanguage(language);
+        }
+
         var subs = GetFilesMatchingLanguage(files, language);
         if (subs.Count == 0) return;
 
@@ -118,7 +126,7 @@ internal static class Utils
         subs.Sort((s1, s2) => s2.Length.CompareTo(s1.Length));
 
         var subFile = subs[priority];
-        var newPath = Path.Combine($@"{outputDir.FullName}", $@"{subtitleName}.{language}{subFile.Extension}");
+        var newPath = Path.Combine($@"{outputDir.FullName}", $@"{subtitleName}.{languageCode}{subFile.Extension}");
         subFile.CopyTo(newPath, true);
     }
 
@@ -132,6 +140,18 @@ internal static class Utils
         }
 
         return subs;
+    }
+    public static string GetISOCodeMatchingLanguage(string languageName)
+    {
+        //Compile a dict to access a culture by its english name
+        var cultureInfosDict = CultureInfo.GetCultures(CultureTypes.AllCultures)
+                    .ToLookup(x => x.EnglishName.ToLowerInvariant());
+
+        var requestedCulture = cultureInfosDict[languageName].FirstOrDefault();
+        var languageCode = requestedCulture?.ThreeLetterISOLanguageName;
+
+        //If languageCode was not acquired, return the provided language.
+        return languageCode ?? languageName;
     }
 
 }
