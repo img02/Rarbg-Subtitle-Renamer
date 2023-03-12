@@ -118,7 +118,7 @@ internal static class Utils
         subs.Sort((s1, s2) => s2.Length.CompareTo(s1.Length));
 
         var subFile = subs[priority];
-        var newPath = $@"{outputDir.FullName}/{subtitleName}{subFile.Extension}";
+        var newPath = Path.Combine($@"{outputDir.FullName}", $@"{subtitleName}{subFile.Extension}");
         subFile.CopyTo(newPath, true);
     }
 
