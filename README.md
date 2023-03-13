@@ -29,10 +29,10 @@ to
 ```
 TV Show Name
 ├── Subs
-│   ├── Episode 1.srt
-│   ├── Episode 2.srt
-│   ├── Episode 3.srt
-│   └── Episode 4.srt
+│   ├── Episode 1.eng.srt
+│   ├── Episode 2.eng.srt
+│   ├── Episode 3.eng.srt
+│   └── Episode 4.eng.srt
 ├── Episode 1.mkv
 ├── Episode 2.mkv
 ├── Episode 3.mkv
@@ -54,6 +54,7 @@ To rename and move Eng subs to the 'Subs' folder and then delete all subdirector
 -------------------------------
 -l --language
                  Sets the subtitle language to match. Must match the language in the file name. Defaults to English
+Multiple language input supported. Example: '-l english german korean'
 -p --priority
                  Sets the file size priority for subtitles, 0 being the largest file.
                  For example, SDH subtitles (Subtitles for the deaf or hard-of-hearing) will have more lines and therefore be a higher file size
