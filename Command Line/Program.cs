@@ -8,6 +8,7 @@ namespace CommandLine
         public static void Main(string[] args)
         {
             var lang = DefaultLanguage;
+            var langQueue = new Queue<string>(new[] { lang });
             var priority = 0;
             var outputDir = string.Empty;
             var deleteAfterRename = false;
@@ -41,7 +42,18 @@ namespace CommandLine
                 {
                     case "-l":
                     case "--language":
+                        //remove default language is user has custom selection
+                        langQueue.Dequeue();
                         lang = args[i++ + 1];
+                        langQueue.Enqueue(lang);
+                        // while next arg doesn't start start with '-' 
+                        // parse next language, add to lang queue
+                        while (i + 1 < args.Length && !args[i + 1].StartsWith('-'))
+                        {
+                            lang = args[i++ + 1];
+                            langQueue.Enqueue(lang);
+                        }
+
                         break;
                     case "-o":
                     case "--output":
@@ -75,7 +87,13 @@ namespace CommandLine
                 }
             }
 
-            Rename(baseDir, outputDir, lang, priority, deleteAfterRename);
+            // only do delete if last sub language to copy
+            while (langQueue.Count > 0)
+            {
+                lang = langQueue.Dequeue();
+                var deleteSubsFolder = langQueue.Count == 0 && deleteAfterRename;
+                Rename(baseDir, outputDir, lang, priority, deleteSubsFolder);
+            }
         }
 
         private static void Rename(string baseDir, string outputDir, string lang, int priority, bool delete)
