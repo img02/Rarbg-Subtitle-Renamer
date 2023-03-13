@@ -8,6 +8,7 @@ namespace CommandLine
         public static void Main(string[] args)
         {
             var lang = DefaultLanguage;
+            var langQueue = new Queue<string>(new[] { lang });
             var priority = 0;
             var outputDir = string.Empty;
             var deleteAfterRename = false;
@@ -41,7 +42,17 @@ namespace CommandLine
                 {
                     case "-l":
                     case "--language":
+                        //remove default language is user has custom selection
+                        langQueue.Dequeue();
                         lang = args[i++ + 1];
+                        langQueue.Enqueue(lang);
+                        // while next arg doesn't start start with '-' 
+                        // parse next language, add to lang queue
+                        while (i + 1 < args.Length && !args[i + 1].StartsWith('-'))
+                        {
+                            lang = args[i++ + 1];
+                            langQueue.Enqueue(lang);
+                        }
                         break;
                     case "-o":
                     case "--output":
@@ -75,7 +86,13 @@ namespace CommandLine
                 }
             }
 
-            Rename(baseDir, outputDir, lang, priority, deleteAfterRename);
+            // only do delete if last sub language to copy
+            while (langQueue.Count > 0)
+            {
+                lang = langQueue.Dequeue();
+                var deleteSubsFolder = langQueue.Count == 0 && deleteAfterRename;
+                Rename(baseDir, outputDir, lang, priority, deleteSubsFolder);
+            }
         }
 
         private static void Rename(string baseDir, string outputDir, string lang, int priority, bool delete)
@@ -107,6 +124,7 @@ namespace CommandLine
             Console.WriteLine("-------------------------------");
             Console.WriteLine("-l --language");
             Console.WriteLine("\t\t Sets the subtitle language to match. Must match the language in the file name. Defaults to English");
+            Console.WriteLine("Multiple language input supported. Example: '-l english german korean'");
             Console.WriteLine("-p --priority");
             Console.WriteLine("\t\t Sets the file size priority for subtitles, 0 being the largest file.");
             Console.WriteLine("\t\t For example, SDH subtitles (Subtitles for the deaf or hard-of-hearing) will have more lines and therefore be a higher file size");
