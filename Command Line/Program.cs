@@ -53,7 +53,6 @@ namespace CommandLine
                             lang = args[i++ + 1];
                             langQueue.Enqueue(lang);
                         }
-
                         break;
                     case "-o":
                     case "--output":
@@ -125,6 +124,7 @@ namespace CommandLine
             Console.WriteLine("-------------------------------");
             Console.WriteLine("-l --language");
             Console.WriteLine("\t\t Sets the subtitle language to match. Must match the language in the file name. Defaults to English");
+            Console.WriteLine("Multiple language input supported. Example: '-l english german korean'");
             Console.WriteLine("-p --priority");
             Console.WriteLine("\t\t Sets the file size priority for subtitles, 0 being the largest file.");
             Console.WriteLine("\t\t For example, SDH subtitles (Subtitles for the deaf or hard-of-hearing) will have more lines and therefore be a higher file size");
